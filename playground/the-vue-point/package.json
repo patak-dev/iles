@@ -12,6 +12,7 @@
     "@mapbox/rehype-prism": "^0.8.0",
     "feed": "^4.2.1",
     "iles": "workspace:*",
+    "@unocss/vite": "file:../../../unocss/packages/vite",
     "unplugin-icons": "^0.12.15",
     "vite": "^2.6.10",
     "vite-plugin-windicss": "^1.4.1"

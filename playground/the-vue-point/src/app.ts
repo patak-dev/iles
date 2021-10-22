@@ -1,7 +1,6 @@
 import { defineApp } from 'iles'
 
-import 'virtual:windi.css'
-import 'virtual:windi-devtools'
+import '@unocss/reset/tailwind.css'
 import '~/style.css'
 
 export default defineApp({
