@@ -4,7 +4,7 @@ import type { GetManualChunk } from 'rollup'
 import type { App, Ref, DefineComponent } from 'vue'
 import type { Options as CritterOptions } from 'critters'
 import type VuePlugin, { Options as VueOptions } from '@vitejs/plugin-vue'
-import type PagesPlugin, { UserOptions as PagesOptions } from 'vite-plugin-pages'
+import type PagesPlugin, { UserOptions as PagesPluginOptions } from 'vite-plugin-pages'
 import type ComponentsPlugin from 'unplugin-vue-components/vite'
 import type { Options as ComponentOptions } from 'unplugin-vue-components/types'
 import type VueJsxPlugin from '@vitejs/plugin-vue-jsx'
@@ -50,6 +50,10 @@ export interface PageData<T = PageProps> {
   readonly meta: PageMeta
   readonly frontmatter: PageFrontmatter
   readonly site: UserSite
+}
+
+export interface PagesOptions extends Omit<PagesPluginOptions, 'pagesDir' | 'react'> {
+  modifyPath?: (route: Route, frontmatter: Record<string, any>) => string | void
 }
 
 export type HeadConfig = HeadObject
@@ -109,7 +113,7 @@ export interface AppPlugins {
   /**
    * Configuration options for vite-plugin-pages
    */
-  pages: Omit<PagesOptions, 'pagesDir' | 'react'>
+  pages: PagesOptions
   /**
    * Configuration options for unplugin-vue-components, which manages automatic
    * imports for components in Vue and MDX files.

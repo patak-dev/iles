@@ -190,7 +190,13 @@ function appConfigDefaults (appConfig: AppConfig, userConfig: UserConfig): Omit<
       // be used to correctly infer the file name during SSG.
       extendRoute (route) {
         const filename = join(root, route.component)
-        return { ...route, meta: { ...route.meta, filename } }
+        let path = route.path
+        const modifyPath = appConfig.pages.modifyPath
+        if (modifyPath) {
+          let resolvedPage = appConfig.namedPlugins.pages.api.pageForFile(filename)
+          path = modifyPath(route, resolvedPage?.customBlock || {}) || path
+        }
+        return { ...route, path, meta: { ...route.meta, filename } }
       },
     },
     vite: viteConfigDefaults(root),
