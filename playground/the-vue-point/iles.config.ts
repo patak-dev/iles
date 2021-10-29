@@ -1,14 +1,10 @@
-import { resolve } from 'path'
 import { defineConfig } from 'iles'
 
 import iconsResolver from 'unplugin-icons/resolver'
 
 import icons from 'unplugin-icons/vite'
-import unocss from '@unocss/vite'
+import unocss from 'unocss/vite'
 import inspect from 'vite-plugin-inspect'
-
-const resolveUno = (path: string) =>
-  resolve(`../../../unocss/packages/${path}/src/index.ts`)
 
 export default defineConfig({
   siteUrl: 'https://the-vue-point-with-iles.netlify.app/',
@@ -29,20 +25,11 @@ export default defineConfig({
     },
   },
   vite: {
-    resolve: {
-      alias: {
-        unocss: resolveUno('unocss'),
-        '@unocss/core': resolveUno('core'),
-        '@unocss/vite': resolveUno('vite'),
-        '@unocss/preset-uno': resolveUno('preset-uno'),
-        '@unocss/preset-attributify': resolveUno('preset-attributify'),
-        '@unocss/preset-icons': resolveUno('preset-icons'),
-        '@unocss': resolve('../../../unocss/packages'),
-      },
-    },
     plugins: [
       icons({ autoInstall: true }),
-      unocss(),
+      unocss({
+        include: [/src\/(components|layouts|pages)/],
+      }),
       Boolean(process.env.DEBUG) && inspect(),
     ],
   },
